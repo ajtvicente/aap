@@ -11,9 +11,9 @@
 #        register: openshift_auth_results
 #        validate_certs: false
 ---
-- name: test
-  hosts: all
-  #connection: https://api.crc.testing:6443
+- name: This is a play
+  hosts: localhost
+  connection: https://api.crc.testing:6443
   tasks:
     - name: Login to OpenShift
-      ansible.builtin.command: oc login -u  https://api.crc.testing:6443 -p Ca8zA-bcgFs-W9Hr8-Q28fd
+      ansible.builtin.command: oc login --insecure-skip-tls-verify -u developer -p developer
