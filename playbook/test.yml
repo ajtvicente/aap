@@ -1,12 +1,7 @@
 ---
-- name: Test execution playbook
+- name: test
   hosts: localhost
+  connection: local
   tasks:
-    - name: Print effective user running tasks
-      debug: var=ansible_user_id
-
-    - name: Print kernel release info
-      debug: var=ansible_facts['kernel']
-
-    - name: Print hostname server
-      debug: var=ansible_facts['nodename']
+    - name: Login to OpenShift
+      ansible.builtin.command: oc login -u kubeadmin https://api.crc.testing:6443 -p Ca8zA-bcgFs-W9Hr8-Q28fd
