@@ -1,0 +1,12 @@
+---
+- name: Test execution playbook
+  hosts: localhost
+  tasks:
+    - name: Print effective user running tasks
+      debug: var=ansible_user_id
+
+    - name: Print kernel release info
+      debug: var=ansible_facts['kernel']
+
+    - name: Print hostname server
+      debug: var=ansible_facts['nodename']
