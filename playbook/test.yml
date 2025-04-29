@@ -1,21 +1,19 @@
-- name: Example Playbook
-  hosts: localhost
-  module_defaults:
-    redhat.openshift.openshift:
-      host: "https://api.crc.testing:6443"
-    tasks:
-      - name: Log in (obtain access token)
-        redhat.openshift.openshift_auth:
-            username: kubeadmin
-            password: Ca8zA-bcgFs-W9Hr8-Q28fd
-        register: openshift_auth_results
-        validate_certs: false
-
-
-#---
-#- name: test
+#- name: Example Playbook
 #  hosts: localhost
-#  #connection: local
-#  tasks:
-#    - name: Login to OpenShift
-#      ansible.builtin.command: oc login -u  https://api.crc.testing:6443 -p Ca8zA-bcgFs-W9Hr8-Q28fd
+#  module_defaults:
+#    redhat.openshift.openshift:
+#      host: "https://api.crc.testing:6443"
+#    tasks:
+#      - name: Log in (obtain access token)
+#        redhat.openshift.openshift_auth:
+#            username: kubeadmin
+#            password: Ca8zA-bcgFs-W9Hr8-Q28fd
+#        register: openshift_auth_results
+#        validate_certs: false
+---
+- name: test
+  hosts: localhost
+  connection: https://api.crc.testing:6443
+  tasks:
+    - name: Login to OpenShift
+      ansible.builtin.command: oc login -u  https://api.crc.testing:6443 -p Ca8zA-bcgFs-W9Hr8-Q28fd
