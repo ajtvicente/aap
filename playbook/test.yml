@@ -1,23 +1,6 @@
 ---
-- name: OC Login
+- name: This is a play
   hosts: localhost
-  connection: local
-
-  vars:
-    openshift_server: "https://api.crc.testing:6443"
-    username: "kubeadmin"
-    password: "Ca8zA-bcgFs-W9Hr8-Q28fd"
-
   tasks:
-    - name: Test OC
-      ansible.builtin.command: oc Version
-    - name: ping
-      ansible.builtin.command: ping {{ openshift_server }}
-    - name: login OpenShift
-      ansible.builtin.command: oc login -u {{ username }} {{ openshift_server }} -p{{ password }} --insecure-skip-tls-verify=true
-      register: login_result
-      changed_when: false
-
-    - name: Mostrar resultado do login
-      debug:
-        var: login_result.stdout_lines
+    - name: Login to OpenShift
+      ansible.builtin.command: oc login --insecure-skip-tls-verify --username=developer "https://api.crc.testing:6443" --password=developer
