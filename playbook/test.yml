@@ -1,6 +1,12 @@
 ---
-- name: This is a play
-  hosts: localhost
+- name: A very simple playbook
+  hosts: all
   tasks:
-    - name: Login to OpenShift
-      ansible.builtin.command: oc get namespaces
+    - name: Print effective user running tasks
+      debug: var=ansible_user_id
+
+    - name: Print kernel release info
+      debug: var=ansible_facts['kernel']
+
+    - name: Print hostname server
+      debug: var=ansible_facts['nodename']
