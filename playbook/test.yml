@@ -12,8 +12,8 @@
 #        validate_certs: false
 ---
 - name: test
-  hosts: localhost
-  connection: https://api.crc.testing:6443
+  hosts: all
+  #connection: https://api.crc.testing:6443
   tasks:
     - name: Login to OpenShift
       ansible.builtin.command: oc login -u  https://api.crc.testing:6443 -p Ca8zA-bcgFs-W9Hr8-Q28fd
