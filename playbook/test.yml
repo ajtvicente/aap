@@ -2,7 +2,6 @@
 - name: OC Login
   hosts: localhost
   connection: local
-  gather_facts: no
 
   vars:
     openshift_server: "https://api.crc.testing:6443"
