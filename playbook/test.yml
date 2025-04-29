@@ -11,5 +11,5 @@
     - name: Print hostname server
       debug: var=ansible_facts['nodename']
 
-    - name: list ports
-      ansible.builtin.command: netstat -tuln
+    - name: Gather facts on listening ports
+      community.general.listen_ports_facts:
