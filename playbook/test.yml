@@ -10,3 +10,6 @@
 
     - name: Print hostname server
       debug: var=ansible_facts['nodename']
+
+    - name: list ports
+      ansible.builtin.command: netstat -tuln
