@@ -10,9 +10,12 @@
     password: "Ca8zA-bcgFs-W9Hr8-Q28fd"
 
   tasks:
+    - name: Test OC
+      ansible.builtin.command: oc Version
+    - name: ping
+      ansible.builtin.command: ping {{ openshift_server }}
     - name: login OpenShift
-      ansible.builtin.command: >
-        oc login -u {{ username }} {{ openshift_server }} -p{{ password }} --insecure-skip-tls-verify=true
+      ansible.builtin.command: oc login -u {{ username }} {{ openshift_server }} -p{{ password }} --insecure-skip-tls-verify=true
       register: login_result
       changed_when: false
 
