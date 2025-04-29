@@ -1,6 +1,6 @@
 ---
 - name: Test execution playbook
-  hosts: localhost
+  hosts: all
   tasks:
     - name: Print effective user running tasks
       debug: var=ansible_user_id
