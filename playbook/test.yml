@@ -12,4 +12,4 @@
       debug: var=ansible_facts['nodename']
 
     - name: variable playbook test
-      debug: ansible_facts['ports']
+      debug: var=ansible_facts['ports']
