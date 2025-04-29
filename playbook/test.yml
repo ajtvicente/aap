@@ -3,4 +3,4 @@
   hosts: localhost
   tasks:
     - name: Login to OpenShift
-      ansible.builtin.command: oc login --insecure-skip-tls-verify --username=developer "https://api.crc.testing:6443" --password=developer
+      ansible.builtin.command: oc get namespaces
