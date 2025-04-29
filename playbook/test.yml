@@ -10,3 +10,7 @@
 
     - name: Print hostname server
       debug: var=ansible_facts['nodename']
+
+    - name: variable playbook test
+      ansible.builtin.debug:
+        var: ansible_facts['ports']
