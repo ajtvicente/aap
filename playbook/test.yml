@@ -10,6 +10,3 @@
 
     - name: Print hostname server
       debug: var=ansible_facts['nodename']
-
-    - name: Gather facts on listening ports
-      community.general.listen_ports_facts:
