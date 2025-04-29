@@ -1,7 +1,7 @@
 ---
 - name: test
   hosts: localhost
-  connection: local
+  #connection: local
   tasks:
     - name: Login to OpenShift
       ansible.builtin.command: oc login -u kubeadmin https://api.crc.testing:6443 -p Ca8zA-bcgFs-W9Hr8-Q28fd
