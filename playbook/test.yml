@@ -1,15 +1,28 @@
 ---
-- name: A very simple playbook
-  hosts: all
+- name: Ansible playbooks to test openshift connection
+  hosts: localhost
+  connection: local
   tasks:
-    - name: Print effective user running tasks
-      debug: var=ansible_user_id
+    - name: Get a list of all pods from any namespace
+      register: pod_list
+      kubernetes.core.k8s_info:
+        host: "https://api.bradesco.sandbox1885.opentlc.com:6443"
+        api_key: "sha256~GRS71uW7XJWnkC0W_DrtaqmDtv_ngO2vZvPyxhXLyoo"
+        kind: Pod
 
-    - name: Print kernel release info
-      debug: var=ansible_facts['kernel']
 
-    - name: Print hostname server
-      debug: var=ansible_facts['nodename']
-
-    - name: variable playbook test
-      debug: var=ansible_facts['memory_mb']
+#---
+#- name: A very simple playbook
+#  hosts: all
+#  tasks:
+#    - name: Print effective user running tasks
+#      debug: var=ansible_user_id
+#
+#    - name: Print kernel release info
+#      debug: var=ansible_facts['kernel']
+#
+#    - name: Print hostname server
+#      debug: var=ansible_facts['nodename']
+#
+#    - name: variable playbook test
+#      debug: var=ansible_facts['memory_mb']
