@@ -9,14 +9,20 @@
         host: "https://api.bradesco.sandbox1885.opentlc.com:6443"
         verify_ssl: no
         api_key: "sha256~GRS71uW7XJWnkC0W_DrtaqmDtv_ngO2vZvPyxhXLyoo"
-        kind: Pods
+        kind: Pod
     - name: List nodes
       register: nodes
       kubernetes.core.k8s_info:
+        host: "https://api.bradesco.sandbox1885.opentlc.com:6443"
+        verify_ssl: no
+        api_key: "sha256~GRS71uW7XJWnkC0W_DrtaqmDtv_ngO2vZvPyxhXLyoo"      
         api_version: v1
         kind: Node
     - name: Print nodes
       ansible.builtin.debug:
+        host: "https://api.bradesco.sandbox1885.opentlc.com:6443"
+        verify_ssl: no
+        api_key: "sha256~GRS71uW7XJWnkC0W_DrtaqmDtv_ngO2vZvPyxhXLyoo"      
         var: nodes
 
 
