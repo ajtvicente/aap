@@ -9,7 +9,7 @@
         host: "https://api.bradesco.sandbox1885.opentlc.com:6443"
         verify_ssl: no
         api_key: "sha256~GRS71uW7XJWnkC0W_DrtaqmDtv_ngO2vZvPyxhXLyoo"
-        kind: Pod
+        kind: Node
 
 
 #---
