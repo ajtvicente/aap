@@ -6,24 +6,24 @@
     - name: Get a list of nodes
       register: pod_list
       kubernetes.core.k8s_info:
-        host: "https://api.bradesco.sandbox1155.opentlc.com:6443"
-        verify_ssl: no
-        api_key: "sha256~EqwgU_J1DM6E3AutciGtKOiO_AVT5pYV-88atTLMFm4"
+      #  host: "https://api.bradesco.sandbox1155.opentlc.com:6443"
+      #  verify_ssl: no
+      #  api_key: "sha256~EqwgU_J1DM6E3AutciGtKOiO_AVT5pYV-88atTLMFm4"
         kind: Node
     - name: Get a list of all namespaces
       register: nodes
       kubernetes.core.k8s_info:
-        host: "https://api.bradesco.sandbox1155.opentlc.com:6443"
-        verify_ssl: no
-        api_key: "sha256~EqwgU_J1DM6E3AutciGtKOiO_AVT5pYV-88atTLMFm4"      
+      #  host: "https://api.bradesco.sandbox1155.opentlc.com:6443"
+      #  verify_ssl: no
+      #  api_key: "sha256~EqwgU_J1DM6E3AutciGtKOiO_AVT5pYV-88atTLMFm4"      
         api_version: v1
         kind: namespace
     - name: List images
       register: nodes
       kubernetes.core.k8s_info:
-        host: "https://api.bradesco.sandbox1155.opentlc.com:6443"
-        verify_ssl: no
-        api_key: "sha256~EqwgU_J1DM6E3AutciGtKOiO_AVT5pYV-88atTLMFm4"      
+      #  host: "https://api.bradesco.sandbox1155.opentlc.com:6443"
+      #  verify_ssl: no
+      #  api_key: "sha256~EqwgU_J1DM6E3AutciGtKOiO_AVT5pYV-88atTLMFm4"      
         api_version: image.openshift.io/v1
         kind: ImageStream
 
