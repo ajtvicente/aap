@@ -5,7 +5,7 @@
     - name: Get list of hosts
       ansible.builtin.uri:
         url: https://ansible.redhat.lab/api/v2/hosts/
-        user: "root"
+        user: "admin"
         password: "redhat.123"
         method: GET
         validate_certs: false
