@@ -12,10 +12,10 @@
         force_basic_auth: true
         status_code: 200
         body_format: json
-      register: output
-    - name: Print list of hosts
-      ansible.builtin.debug:
-        var: output.json.results
+#      register: output
+#    - name: Print list of hosts
+#      ansible.builtin.debug:
+#        var: output.json.results
 
 #---
 #- name: Ansible playbooks to test openshift connection
