@@ -1,64 +1,15 @@
 ---
-- name: Get list of hosts from Ansible
-  hosts: localhost
+- name: A very simple playbook
+  hosts: all
   tasks:
-    - name: Get list of hosts
-      ansible.builtin.uri:
-        url: https://ansible.redhat.lab/api/v2/hosts/
-        user: "admin"
-        password: "redhat.123"
-        method: GET
-        validate_certs: false
-        force_basic_auth: true
-        status_code: 200
-        body_format: json
-      register: output
-    - name: Print list of hosts
-      ansible.builtin.debug:
-        var: output.json.results
+    - name: Print effective user running tasks
+      debug: var=ansible_user_id
 
-#---
-#- name: Ansible playbooks to test openshift connection
-#  hosts: localhost
-#  connection: local
-#  tasks:
-#    - name: Get a list of nodes
-#      register: pod_list
-#      kubernetes.core.k8s_info:
-#      #  host: "https://api.bradesco.sandbox1155.opentlc.com:6443"
-#      #  verify_ssl: no
-#      #  api_key: "sha256~EqwgU_J1DM6E3AutciGtKOiO_AVT5pYV-88atTLMFm4"
-#        kind: Node
-#    - name: Get a list of all namespaces
-#      register: nodes
-#      kubernetes.core.k8s_info:
-      #  host: "https://api.bradesco.sandbox1155.opentlc.com:6443"
-      #  verify_ssl: no
-      #  api_key: "sha256~EqwgU_J1DM6E3AutciGtKOiO_AVT5pYV-88atTLMFm4"      
-#        api_version: v1
-#        kind: namespace
-#    - name: List images
-#      register: nodes
-#      kubernetes.core.k8s_info:
-      #  host: "https://api.bradesco.sandbox1155.opentlc.com:6443"
-      #  verify_ssl: no
-      #  api_key: "sha256~EqwgU_J1DM6E3AutciGtKOiO_AVT5pYV-88atTLMFm4"      
-#        api_version: image.openshift.io/v1
-#        kind: ImageStream
+    - name: Print kernel release info
+      debug: var=ansible_facts['kernel']
 
+    - name: Print hostname server
+      debug: var=ansible_facts['nodename']
 
-#---
-#- name: A very simple playbook
-#  hosts: all
-#  tasks:
-#    - name: Print effective user running tasks
-#      debug: var=ansible_user_id
-#
-#    - name: Print kernel release info
-#      debug: var=ansible_facts['kernel']
-#
-#    - name: Print hostname server
-#      debug: var=ansible_facts['nodename']
-#
-#    - name: variable playbook test
-#      debug: var=ansible_facts['memory_mb']
+    - name: variable playbook test
+      debug: var=ansible_facts['memory_mb']
