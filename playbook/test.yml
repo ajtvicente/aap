@@ -7,6 +7,7 @@
       ansible.builtin.command: mount -a
     - name: Access mount point /file and cat the readm file
       ansible.builtin.command: cat /opt/test
+      debug:
         var: resultado_cat.stdout
     - name: Create a file in /file with the name of the linux server
       ansible.builtin.copy:
