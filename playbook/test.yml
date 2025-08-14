@@ -1,30 +1,39 @@
 ---
-- name: A very simple playbook
+- name: mount point linux
   hosts: all
   become: true
   tasks:
-    - name: Print effective user running tasks
-      debug: var=ansible_user_id
-
-    - name: Print kernel release info
-      debug: var=ansible_facts['kernel']
-
-    - name: Print hostname server
-      debug: var=ansible_facts['nodename']
-
-    - name: variable playbook test
-      debug: var=ansible_facts['memory_mb']
-
     - name: Mount -a
       ansible.builtin.command: mount -a
-      
     - name: Access mount point /file and cat the readm file
       ansible.builtin.command: cat /opt/test
-       msg: test
-
+      msg: test
     - name: Create a file in /file with the name of the linux server
       ansible.builtin.copy:
         content: "{{ ansible_hostname }}"
-        dest: /suportedbdc/apl/grca/openpages-storage/{{ ansible_hostname }}
+        dest: /opt/{{ ansible_hostname }}
+
+
+#---
+#- name: A very simple playbook
+#  hosts: all
+#  become: true
+#  tasks:
+#    - name: Print effective user running tasks
+#      debug: var=ansible_user_id
+
+#    - name: Print kernel release info
+#       debug: var=ansible_facts['kernel']
+
+#    - name: Print hostname server
+#      debug: var=ansible_facts['nodename']
+
+#    - name: variable playbook test
+#      debug: var=ansible_facts['memory_mb']
+
+#    - name: Mount -a
+#      ansible.builtin.command: mount -a
+      
+
 
     
