@@ -43,6 +43,7 @@
 
     - name: Check Python version via alternatives
       ansible.builtin.shell: "alternatives --display python3 || update-alternatives --display python3"
+      ignore_errors: true
       register: python_alternatives
       changed_when: false
     - name: Show enabled Python version
