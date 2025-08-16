@@ -15,10 +15,12 @@
     - name: number of cpu
       ansible.builtin.debug:
         var: ansible_processor_count
-    - name: Memory in GB
-      ansible.builtin.debug:
-        msg: "{{ _msg_ }}"
-
+    - name: Memory
+      ansible.builtin.command: cat /proc/meminfo | grep MemTotal | awk '{print $2/1024/1024 " GB"}'
+      register: result_cat_memory
+    - name: Result memory
+      debug:
+        var: result_cat_memory.stdout
 
 #---
 #- name: mount point linux
