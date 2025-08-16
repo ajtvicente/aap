@@ -1,0 +1,109 @@
+---
+- name: Teste de requisito para execução de setup Red Hat Ansible 
+  hosts: all
+  become: true
+  tasks:
+    - name: Print hostname
+      ansible.builtin.debug:
+        var: ansible_hostname
+
+    - name: Print OS release and version
+      ansible.builtin.debug:
+        msg: "{{ ansible_distribution }} {{ ansible_distribution_version }}"
+
+    - name: uptime
+      ansible.builtin.debug:
+        var: ansible_uptime_seconds
+
+    - name: number of cpu
+      ansible.builtin.debug:
+        var: ansible_processor_count
+
+    - name: List memory in linux
+      ansible.builtin.shell: cat /proc/meminfo | grep MemTotal | awk '{print $2/1024/1024 " GB."}'
+      register: memory
+    - name: output command result
+      ansible.builtin.debug:
+        msg: "{{ memory.stdout }}"
+  
+    - name: Check firewalld status
+      ansible.builtin.command: firewall-cmd --state
+      register: firewalld_status
+    - name: Print firewalld status
+      ansible.builtin.debug:
+        msg: "{{ firewalld_status.stdout }}"
+ 
+    - name: list servers from /etc/chrony.conf file
+      ansible.builtin.shell: cat /etc/chrony.conf | grep -E "^(server|pool)"
+      register: chrony_conf
+    - name: output servers
+      ansible.builtin.debug:
+        msg: "{{ chrony_conf.stdout_lines }}"
+
+    - name: update crypto-policy
+      ansible.builtin.command: update-crypto-policies --show
+      register: crypto_policy
+    - name: Show crypto-policy
+      debug:
+        var: crypto_policy.stdout
+
+    - name: Check Python version via alternatives
+      ansible.builtin.shell: "alternatives --display python3 || update-alternatives --display python3"
+      ignore_errors: true
+      register: python_alternatives
+      changed_when: false
+    - name: Show enabled Python version
+      ansible.builtin.debug:
+        msg: "Versão do Python habilitada no alternatives: {{ python_alternatives.stdout_lines | select('search', 'link currently points to') | list | join(', ') }}"
+      when: python_alternatives.stdout is search('link currently points to')
+    - name: Show warning if no Python configuration exists in alternatives
+      ansible.builtin.debug:
+        msg: "Nenhuma configuração de alternatives encontrada para o Python"
+      when: python_alternatives.stdout == ""
+
+    - name: Check if there is a noexec parameter in /etc/fstab
+      ansible.builtin.shell: "grep -w noexec /etc/fstab || true"
+      register: fstab_noexec
+      changed_when: false
+    - name: Display message if noexec parameter exists
+      ansible.builtin.debug:
+        msg: "O parâmetro 'noexec' está configurado no /etc/fstab"
+      when: fstab_noexec.stdout != ""
+    - name: Display message if noexec parameter does not exist
+      ansible.builtin.debug:
+        msg: "O parâmetro 'noexec' NÃO está configurado no /etc/fstab"
+      when: fstab_noexec.stdout == ""
+
+    - name: Check PermitRootLogin setting in sshd_config
+      ansible.builtin.shell: "grep -i '^PermitRootLogin' /etc/ssh/sshd_config || true"
+      register: sshd_permit_root
+      changed_when: false
+    - name: Display message if PermitRootLogin is disabled
+      ansible.builtin.debug:
+        msg: "O acesso direto de root via SSH está DESABILITADO (PermitRootLogin no)"
+      when: sshd_permit_root.stdout is search('no', ignorecase=True)
+    - name: Display message if PermitRootLogin is enabled
+      ansible.builtin.debug:
+        msg: "O acesso direto de root via SSH está HABILITADO (PermitRootLogin yes)"
+      when: sshd_permit_root.stdout is search('yes', ignorecase=True)
+    - name: Display message if no explicit configuration
+      ansible.builtin.debug:
+        msg: "Não há configuração explícita de PermitRootLogin no sshd_config (valor padrão pode ser 'prohibit-password')"
+      when: sshd_permit_root.stdout == ""
+
+    - name: Check if SELinux is enabled
+      ansible.builtin.command: getenforce
+      register: selinux_status
+      changed_when: false
+    - name: Display message if SELinux is enabled (Enforcing)
+      ansible.builtin.debug:
+        msg: "O SELinux está HABILITADO e em modo Enforcing"
+      when: selinux_status.stdout == "Enforcing"
+    - name: Display message if SELinux is active but permissive
+      ansible.builtin.debug:
+        msg: "O SELinux está ATIVO, mas em modo Permissive"
+      when: selinux_status.stdout == "Permissive"
+    - name: Display message if SELinux is disabled
+      ansible.builtin.debug:
+        msg: "O SELinux está DESABILITADO"
+      when: selinux_status.stdout == "Disabled"
