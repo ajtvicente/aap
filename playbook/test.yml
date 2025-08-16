@@ -39,14 +39,6 @@
     - name: Show crypto-policy
       debug:
         var: crypto_policy.stdout
-    - name: Alternatives Python
-      ansible.builtin.shell: alternatives --list | grep python3
-      ignore_errors: true
-      register: alternatives_python
-    - name: Show Alternatives Python
-      debug:
-        var: alternatives_python.stdout
-
 
 
     - name: Check Python version via alternatives
