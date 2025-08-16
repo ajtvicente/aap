@@ -47,6 +47,13 @@
       debug:
         var: crypto_policy.stdout
 
+    - name: Alternatives Python
+      ansible.builtin.command: alternatives --list | grep python3
+      register: alternatives_python
+    - name: Show Alternatives Python
+      debug:
+        var: alternatives_python.stdout
+
 
 #---
 #- name: mount point linux
