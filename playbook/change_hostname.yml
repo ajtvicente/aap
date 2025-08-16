@@ -1,0 +1,8 @@
+---
+- name: Change hosts on /etc/hosts
+  hosts: all
+  tasks:
+    - name: Change hosts on /etc/hosts
+      ansible.builtin.blockinfile:
+        path: /etc/hosts
+        content: "127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4\n::1         localhost localhost.localdomain localhost6 localhost6.localdomain6\n\n10.156.28.20 idm.redhatlab.local\n10.156.28.22 postgre.redhatlab.local\n10.156.28.24 ansible.redhatlab.local\n10.156.28.26 hub.redhatlab.local\n10.156.28.28 execution.redhatlab.local"
