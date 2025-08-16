@@ -3,13 +3,12 @@
   hosts: all
   become: true
   tasks:
-    - name: Print hostname
+    - name: print hostname
       ansible.builtin.debug:
-        var: ansible_hostname
-    - name: print OS-Release
+        msg: "{{ ansible_hostname }}"
+    - name: print OS-version
       ansible.builtin.debug:
-        var: ansible_os_family
-
+        msg: "{{ ansible_distribution }} {{ ansible_distribution_version }}"
 #---
 #- name: mount point linux
 #  hosts: all
