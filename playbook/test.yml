@@ -52,16 +52,14 @@
     - name: Show Alternatives Python
       debug:
         var: alternatives_python.stdout
+
     - name: SELinux 
-      ansible.builtin.command: sestatus
+      ansible.builtin.shell: sestatus | grep 'SELinux status'
       register: sestatus
     - name: Show SELinux
       debug:
         var: sestatus.stdout
-    - name: SELinux status
-      ansible.builtin.service:
-        name: selinux
-        state: started
+
 
 
 #---
