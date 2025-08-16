@@ -16,11 +16,11 @@
       register: result_cat_uptime
 
     - name: CPU
-      ansible.builtin.command: nproc
+      ansible.builtin.shell: grep physical.id /proc/cpuinfo | sort -u | wc -l
       register: result_cat_cpu
 
     - name: Memory
-      ansible.builtin.command: cat /proc/meminfo | grep MemTotal | awk '{print $2/1024/1024 " GB"}'
+      ansible.builtin.shell: cat /proc/meminfo | grep MemTotal | awk '{print $2/1024/1024 " GB"}'
       register: result_cat_memory
 
     - name: Firewall
