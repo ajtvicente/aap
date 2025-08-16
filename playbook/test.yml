@@ -28,7 +28,7 @@
       ansible.builtin.debug:
         msg: "{{ firewalld_status.stdout }}"
     - name: Check fstab noexec parameter
-      ansible.builtin.shell: grep 'noexec' /etc/fstab
+      ansible.builtin.shell: grep noexe' /etc/fstab
       register: noexec_output
     - name: Assert that noexec is present
       ansible.builtin.assert:
