@@ -48,7 +48,7 @@
         var: crypto_policy.stdout
 
     - name: Alternatives Python
-      ansible.builtin.command: alternatives --list | grep python3
+      ansible.builtin.shell: alternatives --list | grep python3
       register: alternatives_python
     - name: Show Alternatives Python
       debug:
