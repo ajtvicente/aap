@@ -6,55 +6,79 @@
     - name: Hostname
       ansible.builtin.command: cat /etc/hostname
       register: result_cat_hostname
+    - name: Result
+      debug:
+        var: result_cat_hostname.stdout
 
     - name: OS-Release
       ansible.builtin.command: cat /etc/redhat-release
       register: result_cat_release
+    - name: Result
+      debug:
+        var: result_cat_release.stdout
 
     - name: uptime
       ansible.builtin.command: uptime
       register: result_cat_uptime
+    - name: Result
+      debug:
+        var: result_cat_uptime.stdout
 
     - name: CPU
       ansible.builtin.shell: grep physical.id /proc/cpuinfo | sort -u | wc -l
       register: result_cat_cpu
+    - name: Result
+      debug:
+        var: result_cat_cpu.stdout
 
     - name: Memory
       ansible.builtin.shell: cat /proc/meminfo | grep MemTotal | awk '{print $2/1024/1024 " GB"}'
       register: result_cat_memory
-
+      debug:
+        var: result_cat_memory.stdout
+        
     - name: Firewall
       ansible.builtin.command: firewall-cmd --state
       register: result_cat_firewall
+      debug:
+        var: result_cat_firewall.stdout
 
     - name: FSTAB
       ansible.builtin.shell: grep noexec /etc/fstab
       register: result_cat_fstab
       ignore_errors: true
+      debug:
+        var: result_cat_fstab.stdout
 
     - name: NTP
       ansible.builtin.shell: cat /etc/chrony.conf | grep -E "^(server|pool)"
       register: result_cat_ntp
+      debug:
+        var: result_cat_ntp.stdout
 
     - name: Crypto-Policies
       ansible.builtin.command: update-crypto-policies --show
       register: result_cat_crypto
+      debug:
+        var: result_cat_crypto.stdout
 
     - name: Python_Version
       ansible.builtin.shell: alternatives --list | grep python3
       register: result_cat_python
+      debug:
+        var: result_cat_python.stdout
 
     - name: SSH 
       ansible.builtin.shell: cat /etc/ssh/sshd_config | grep PermitRootLogin
       register: result_cat_ssh
+      debug:
+        var: result_cat_ssh.stdout
 
     - name: SELinux
       ansible.builtin.command: sestatus
       register: result_cat_sestatus
-
-    - name: Result
       debug:
-        var: result_cat_hostname.stdout, result_cat_release.stdout, result_cat_uptime.stdout, result_cat_cpu.stdout, result_cat_memory.stdout, result_cat_firewall.stdout, result_cat_fstab.stdout, result_cat_ntp.stdout, result_cat_crypto.stdout, result_cat_python.stdout, result_cat_ssh.stdout, result_cat_sestatus.stdout
+        var: result_cat_sestatus.stdout
 
 #---
 #- name: mount point linux
