@@ -65,11 +65,11 @@
       ansible.builtin.debug:
         msg: "{{ check_noexec_output.stdout }}"
     - name: output PermitRootLogin
-      ansible.builtin.command: cat /etc/ssh/sshd_config | grep PermitRootLogin
-      register: output
+      ansible.builtin.shell: cat /etc/ssh/sshd_config | grep PermitRootLogin
+      register: root_login
     - name: show PermitRootLogin
       ansible.builtin.debug:
-        var: output.stdout
+        msg: root_login.stdout
 
 #---
 #- name: mount point linux
