@@ -6,40 +6,46 @@
     - name: Print hostname
       ansible.builtin.debug:
         var: ansible_hostname
+
     - name: Print OS release and version
       ansible.builtin.debug:
         msg: "{{ ansible_distribution }} {{ ansible_distribution_version }}"
+
     - name: uptime
       ansible.builtin.debug:
         var: ansible_uptime_seconds
+
     - name: number of cpu
       ansible.builtin.debug:
         var: ansible_processor_count
+
     - name: List memory in linux
       ansible.builtin.shell: cat /proc/meminfo | grep MemTotal | awk '{print $2/1024/1024 " GB."}'
       register: memory
     - name: output command result
       ansible.builtin.debug:
         msg: "{{ memory.stdout }}"
+  
     - name: Check firewalld status
       ansible.builtin.command: firewall-cmd --state
       register: firewalld_status
     - name: Print firewalld status
       ansible.builtin.debug:
         msg: "{{ firewalld_status.stdout }}"
+ 
     - name: list servers from /etc/chrony.conf file
       ansible.builtin.shell: cat /etc/chrony.conf | grep -E "^(server|pool)"
       register: chrony_conf
     - name: output servers
       ansible.builtin.debug:
         msg: "{{ chrony_conf.stdout_lines }}"
+
     - name: update crypto-policy
       ansible.builtin.command: update-crypto-policies --show
       register: crypto_policy
     - name: Show crypto-policy
       debug:
         var: crypto_policy.stdout
-
 
     - name: Check Python version via alternatives
       ansible.builtin.shell: "alternatives --display python3 || update-alternatives --display python3"
