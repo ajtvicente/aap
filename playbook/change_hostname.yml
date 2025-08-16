@@ -1,6 +1,7 @@
 ---
 - name: Change hosts on /etc/hosts
   hosts: all
+  become: true
   tasks:
     - name: Change hosts on /etc/hosts
       ansible.builtin.blockinfile:
