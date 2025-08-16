@@ -53,7 +53,7 @@
       debug:
         var: sestatus.stdout
     - name: Check noexec in /etc/fstab
-      ansible.builtin.shell: grep noexec /etc/fstab
+      ansible.builtin.shell: cat /etc/fstab | grep noexec
       ignore_errors: true
       register: check_noexec_output
     - name: Output check_noexec_output
