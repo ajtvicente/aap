@@ -17,9 +17,10 @@
         var: ansible_processor_count
     - name: List memory in linux
       ansible.builtin.shell: cat /proc/meminfo | grep MemTotal | awk '{print $2/1024/1024 " GB."}'
-      register: momory_cat
-    - name: Output Memory
-      msg: momory_cat.output
+      register: memory
+    - name: output command result
+      ansible.builtin.debug:
+        msg: "{{ memory.stdout }}"
 
 #---
 #- name: mount point linux
