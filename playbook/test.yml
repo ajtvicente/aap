@@ -54,11 +54,11 @@
       changed_when: false
     - name: Show enabled Python version
       ansible.builtin.debug:
-        msg: "✅ Versão do Python habilitada no alternatives: {{ python_alternatives.stdout_lines | select('search', 'link currently points to') | list | join(', ') }}"
+        msg: "Versão do Python habilitada no alternatives: {{ python_alternatives.stdout_lines | select('search', 'link currently points to') | list | join(', ') }}"
       when: python_alternatives.stdout is search('link currently points to')
     - name: Show warning if no Python configuration exists in alternatives
       ansible.builtin.debug:
-        msg: "⚠️ Nenhuma configuração de alternatives encontrada para o Python"
+        msg: "Nenhuma configuração de alternatives encontrada para o Python"
       when: python_alternatives.stdout == ""
 
     - name: Check if there is a noexec parameter in /etc/fstab
@@ -67,11 +67,11 @@
       changed_when: false
     - name: Display message if noexec parameter exists
       ansible.builtin.debug:
-        msg: "✅ O parâmetro 'noexec' está configurado no /etc/fstab"
+        msg: "O parâmetro 'noexec' está configurado no /etc/fstab"
       when: fstab_noexec.stdout != ""
     - name: Display message if noexec parameter does not exist
       ansible.builtin.debug:
-        msg: "⚠️ O parâmetro 'noexec' NÃO está configurado no /etc/fstab"
+        msg: "O parâmetro 'noexec' NÃO está configurado no /etc/fstab"
       when: fstab_noexec.stdout == ""
 
     - name: Check PermitRootLogin setting in sshd_config
@@ -80,15 +80,15 @@
       changed_when: false
     - name: Display message if PermitRootLogin is disabled
       ansible.builtin.debug:
-        msg: "✅ O acesso direto de root via SSH está DESABILITADO (PermitRootLogin no)"
+        msg: "O acesso direto de root via SSH está DESABILITADO (PermitRootLogin no)"
       when: sshd_permit_root.stdout is search('no', ignorecase=True)
     - name: Display message if PermitRootLogin is enabled
       ansible.builtin.debug:
-        msg: "⚠️ O acesso direto de root via SSH está HABILITADO (PermitRootLogin yes)"
+        msg: "O acesso direto de root via SSH está HABILITADO (PermitRootLogin yes)"
       when: sshd_permit_root.stdout is search('yes', ignorecase=True)
     - name: Display message if no explicit configuration
       ansible.builtin.debug:
-        msg: "ℹ️ Não há configuração explícita de PermitRootLogin no sshd_config (valor padrão pode ser 'prohibit-password')"
+        msg: "Não há configuração explícita de PermitRootLogin no sshd_config (valor padrão pode ser 'prohibit-password')"
       when: sshd_permit_root.stdout == ""
 
     - name: Check if SELinux is enabled
@@ -97,15 +97,15 @@
       changed_when: false
     - name: Display message if SELinux is enabled (Enforcing)
       ansible.builtin.debug:
-        msg: "✅ O SELinux está HABILITADO e em modo Enforcing"
+        msg: "O SELinux está HABILITADO e em modo Enforcing"
       when: selinux_status.stdout == "Enforcing"
     - name: Display message if SELinux is active but permissive
       ansible.builtin.debug:
-        msg: "ℹ️ O SELinux está ATIVO, mas em modo Permissive"
+        msg: "O SELinux está ATIVO, mas em modo Permissive"
       when: selinux_status.stdout == "Permissive"
     - name: Display message if SELinux is disabled
       ansible.builtin.debug:
-        msg: "⚠️ O SELinux está DESABILITADO"
+        msg: "O SELinux está DESABILITADO"
       when: selinux_status.stdout == "Disabled"
 
 
