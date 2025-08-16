@@ -60,17 +60,21 @@
         var: sestatus.stdout
     - name: Check noexec in /etc/fstab
       ansible.builtin.shell: grep noexec /etc/fstab
+      ignore_errors: yes
       register: check_noexec_output
     - name: Output check_noexec_output
       ansible.builtin.debug:
         msg: check_noexec_output.stdout
+        ignore_errors: yes
         # msg: "{{ check_noexec_output.stdout }}"
     - name: output PermitRootLogin
       ansible.builtin.shell: cat /etc/ssh/sshd_config | grep PermitRootLogin
+      ignore_errors: yes
       register: root_login
     - name: show PermitRootLogin
       ansible.builtin.debug:
         msg: root_login.stdout
+        ignore_errors: yes
 
 #---
 #- name: mount point linux
