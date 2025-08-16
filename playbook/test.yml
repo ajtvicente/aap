@@ -52,13 +52,13 @@
     - name: Show SELinux
       debug:
         var: sestatus.stdout
-    - name: Check noexec in /etc/fstab
-      ansible.builtin.shell: cat /etc/fstab | grep noexec
-      ignore_errors: true
-      register: noexec_output
-    - name: Output check_noexec_output
-      ansible.builtin.debug:
-        msg: noexec_output.stdout
+#    - name: Check noexec in /etc/fstab
+#      ansible.builtin.shell: cat /etc/fstab | grep noexec
+#      ignore_errors: true
+#      register: noexec_output
+#    - name: Output check_noexec_output
+#      ansible.builtin.debug:
+#        msg: noexec_output.stdout
     - name: output PermitRootLogin
       ansible.builtin.shell: cat /etc/ssh/sshd_config | grep PermitRootLogin
       ignore_errors: true
@@ -66,6 +66,20 @@
     - name: show PermitRootLogin
       ansible.builtin.debug:
         msg: root_login.stdout
+
+    - name: Check if there is a noexec parameter in /etc/fstab
+      ansible.builtin.shell: "grep -w noexec /etc/fstab || true"
+      register: fstab_noexec
+      changed_when: false
+    - name: Display message if noexec parameter exists
+      ansible.builtin.debug:
+        msg: "✅ O parâmetro 'noexec' está configurado no /etc/fstab"
+      when: fstab_noexec.stdout != ""
+    - name: Display message if noexec parameter does not exist
+      ansible.builtin.debug:
+        msg: "⚠️ O parâmetro 'noexec' NÃO está configurado no /etc/fstab"
+      when: fstab_noexec.stdout == ""
+
 
 #---
 #- name: mount point linux
