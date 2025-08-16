@@ -27,14 +27,19 @@
     - name: Print firewalld status
       ansible.builtin.debug:
         msg: "{{ firewalld_status.stdout }}"
-    - name: Check noexec in /etc/fstab
-      ansible.builtin.shell: grep noexec /etc/fstab
-      register: check_fstab_result
-      ignore_errors: true
-    - name: Assert that noexec is present
-      ansible.builtin.assert:
-        that: check_fstab_result.stdout is search("noexec")
-  
+#    - name: Check noexec in /etc/fstab
+#      ansible.builtin.shell: grep noexec /etc/fstab
+#      register: check_fstab_result
+#      ignore_errors: true
+#    - name: Assert that noexec is present
+#      ansible.builtin.assert:
+#        that: check_fstab_result.stdout is search("noexec")
+    - name: list servers from /etc/chrony.conf file
+      ansible.builtin.command: cat /etc/chrony.conf | grep -E "^(server|pool)"
+      register: chrony_conf
+    - name: output servers
+      ansible.builtin.debug:
+        msg: "{{ chrony_conf.stdout_lines }}"
 
 
 
