@@ -35,7 +35,7 @@
 #      ansible.builtin.assert:
 #        that: check_fstab_result.stdout is search("noexec")
     - name: list servers from /etc/chrony.conf file
-      ansible.builtin.command: cat /etc/chrony.conf
+      ansible.builtin.sehll: cat /etc/chrony.conf | grep -E "^(server|pool)"
       register: chrony_conf
     - name: output servers
       ansible.builtin.debug:
