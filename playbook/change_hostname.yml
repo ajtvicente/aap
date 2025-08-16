@@ -7,3 +7,5 @@
       ansible.builtin.blockinfile:
         path: /etc/hosts
         content: "10.156.28.20 idm.redhatlab.local\n10.156.28.22 postgre.redhatlab.local\n10.156.28.24 ansible.redhatlab.local\n10.156.28.26 hub.redhatlab.local\n10.156.28.28 execution.redhatlab.local"
+    - name: outpout cat /etc/hosts
+      ansible.builtin.command: cat /etc/hosts
