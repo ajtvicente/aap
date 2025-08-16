@@ -5,10 +5,18 @@
   tasks:
     - name: print hostname
       ansible.builtin.debug:
-        msg: "{{ ansible_hostname }}"
+        var: ansible_hostname
     - name: print OS-version
       ansible.builtin.debug:
-        msg: "{{ ansible_distribution }} {{ ansible_distribution_version }}"
+        var: ansible_os_family
+    - name: uptime
+      ansible.builtin.debug:
+        var: ansible_uptime_seconds
+    - name: number of cpu
+      ansible.builtin.debug:
+        var: ansible_processor_count
+
+
 #---
 #- name: mount point linux
 #  hosts: all
