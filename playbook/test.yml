@@ -40,8 +40,11 @@
     - name: output servers
       ansible.builtin.debug:
         msg: "{{ chrony_conf.stdout_lines }}"
-
-
+    - name: update crypto-policy
+      ansible.builtin.command: update-crypto-policies --show
+      register: update-crypto-policies
+      ansible.builtin.debug:
+        msg: "{{ update-crypto-policies.stdout_lines }}"
 
 
 #---
