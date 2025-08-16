@@ -63,7 +63,8 @@
       register: check_noexec_output
     - name: Output check_noexec_output
       ansible.builtin.debug:
-        msg: "{{ check_noexec_output.stdout }}"
+        msg: check_noexec_output.stdout
+        # msg: "{{ check_noexec_output.stdout }}"
     - name: output PermitRootLogin
       ansible.builtin.shell: cat /etc/ssh/sshd_config | grep PermitRootLogin
       register: root_login
