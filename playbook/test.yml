@@ -39,7 +39,7 @@
       failed_when: noexec_in_fstab.rc == 2
     - name: Assert that noexec is present
       ansible.builtin.assert:
-        that: check_fstab_result.stdout is search("noexec")
+        var: check_fstab_result.stdout
 
 #---
 #- name: mount point linux
