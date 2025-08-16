@@ -108,27 +108,6 @@
         msg: "O SELinux está DESABILITADO"
       when: selinux_status.stdout == "Disabled"
 
-
-
-#---
-#- name: mount point linux
-#  hosts: all
-#  become: true
-#  tasks:
-#    - name: Mount -a
-#      ansible.builtin.command: mount -a
-#    - name: Access mount point /file and cat the readm file
-#      ansible.builtin.command: cat /opt/test
-#      register: resultado_cat
-#    - name: Exibir o resultado
-#      debug:
-#        var: resultado_cat.stdout
-#    - name: Create a file in /file with the name of the linux server
-#      ansible.builtin.copy:
-#        content: "{{ ansible_hostname }}"
-#        dest: /opt/{{ ansible_hostname }}
-
-
 #---
 #- name: A very simple playbook
 #  hosts: all
@@ -147,8 +126,4 @@
 #      debug: var=ansible_facts['memory_mb']
 
 #    - name: Mount -a
-#      ansible.builtin.command: mount -a
-      
-
-
-    
+#      ansible.builtin.command: mount -a  
