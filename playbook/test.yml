@@ -34,12 +34,14 @@
     - name: Memory
       ansible.builtin.shell: cat /proc/meminfo | grep MemTotal | awk '{print $2/1024/1024 " GB"}'
       register: result_cat_memory
-#      debug:
-#        var: result_cat_memory.stdout
+    - name: Result
+      debug:
+        var: result_cat_memory.stdout
         
     - name: Firewall
       ansible.builtin.command: firewall-cmd --state
       register: result_cat_firewall
+    - name: Result
       debug:
         var: result_cat_firewall.stdout
 
@@ -47,36 +49,42 @@
       ansible.builtin.shell: grep noexec /etc/fstab
       register: result_cat_fstab
       ignore_errors: true
+    - name: Result
       debug:
         var: result_cat_fstab.stdout
 
     - name: NTP
       ansible.builtin.shell: cat /etc/chrony.conf | grep -E "^(server|pool)"
       register: result_cat_ntp
+    - name: Result
       debug:
         var: result_cat_ntp.stdout
 
     - name: Crypto-Policies
       ansible.builtin.command: update-crypto-policies --show
       register: result_cat_crypto
+     - name: Result
       debug:
         var: result_cat_crypto.stdout
 
     - name: Python_Version
       ansible.builtin.shell: alternatives --list | grep python3
       register: result_cat_python
+    - name: Result     
       debug:
         var: result_cat_python.stdout
 
     - name: SSH 
       ansible.builtin.shell: cat /etc/ssh/sshd_config | grep PermitRootLogin
       register: result_cat_ssh
+    - name: Result
       debug:
         var: result_cat_ssh.stdout
 
     - name: SELinux
       ansible.builtin.command: sestatus
       register: result_cat_sestatus
+    - name: Result
       debug:
         var: result_cat_sestatus.stdout
 
