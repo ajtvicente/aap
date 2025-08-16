@@ -15,12 +15,12 @@
     - name: number of cpu
       ansible.builtin.debug:
         var: ansible_processor_count
-    - name: Memory
-      ansible.builtin.command: cat /proc/meminfo | grep MemTotal | awk '{print $2/1024/1024 " GB"}'
-      register: result_cat_memory
-    - name: Result memory
-      debug:
-        var: result_cat_memory.stdout
+    - name: List memory in linux
+      ansible.builtin.command: cat /proc/meminfo
+      register: memory
+    - name: Format memory output
+      ansible.builtin.debug:
+        msg: Memory in GB {{ memory.stdout | regex_replace('^MemTotal:.*\n +([0-9]+).*$', '\1') | int / 1024 }}
 
 #---
 #- name: mount point linux
