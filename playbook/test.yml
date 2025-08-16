@@ -27,7 +27,7 @@
       ansible.builtin.command: firewall-cmd --state
       register: result_cat_firewall
 
-    - name: FSTAB
+    - name: Check /etc/fstab for noexec
       ansible.builtin.shell: grep noexec /etc/fstab
       register: result_cat_fstab
 
