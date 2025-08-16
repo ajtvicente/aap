@@ -28,7 +28,7 @@
       register: result_cat_firewall
 
     - name: FSTAB
-      ansible.builtin.command: 'cat /etc/fstab | grep noexec'
+      ansible.builtin.command: grep noexec /etc/fstab
       register: result_cat_fstab
 
     - name: NTP
