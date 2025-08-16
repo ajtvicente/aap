@@ -15,6 +15,9 @@
     - name: number of cpu
       ansible.builtin.debug:
         var: ansible_processor_count
+    - name: Memory in GB
+      ansible.builtin.debug:
+        msg: "{{ _msg_ }}"
 
 
 #---
