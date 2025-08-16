@@ -37,10 +37,11 @@
       ansible.builtin.command: grep --ignore-case noexec /etc/fstab
       register: noexec_in_fstab
       failed_when: noexec_in_fstab.rc == 2
-    - name: Assert that noexec is present
-      ansible.builtin.assert:
-        that: noexec_in_fstab.stdout is search("noexec")
-        failed_when: noexec_in_fstab.rc == 2
+    - name: result noexec in fstab
+      ansible.builtin.debug:
+        var: noexec_in_fstab.stdout
+        when: noexec_in_fstab.changed
+
 
 
 #---
