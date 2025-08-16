@@ -43,6 +43,7 @@
     - name: update crypto-policy
       ansible.builtin.command: update-crypto-policies --show
       register: update-crypto-policies
+    - name: output crypto-policy
       ansible.builtin.debug:
         msg: "{{ update-crypto-policies.stdout_lines }}"
 
