@@ -21,6 +21,12 @@
     - name: output command result
       ansible.builtin.debug:
         msg: "{{ memory.stdout }}"
+    - name: Check firewalld status
+      ansible.builtin.command: systemctl status firewalld
+      register: firewalld_status
+    - name: Print firewalld status
+      ansible.builtin.debug:
+        msg: "{{ firewalld_status.stdout }}"
 
 #---
 #- name: mount point linux
