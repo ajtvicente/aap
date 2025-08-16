@@ -3,12 +3,12 @@
   hosts: all
   become: true
   tasks:
-    - name: print hostname
+    - name: Print hostname
       ansible.builtin.debug:
         var: ansible_hostname
-    - name: print OS-version
+    - name: Print OS release and version
       ansible.builtin.debug:
-        var: ansible_os_family
+        msg: "{{ ansible_distribution }} {{ ansible_distribution_version }}"
     - name: uptime
       ansible.builtin.debug:
         var: ansible_uptime_seconds
