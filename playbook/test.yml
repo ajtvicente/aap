@@ -4,7 +4,7 @@
   become: true
   tasks:
     - name: Check /etc/fstab for noexec
-      ansible.builtin.shell: grep noexec /etc/fstab
+      ansible.builtin.shell: cat /etc/fstab | grep noexec
       register: noexec_check
     - name: Check /etc/fstab for noexec
       ansible.builtin.debug:
