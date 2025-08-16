@@ -34,8 +34,8 @@
     - name: Memory
       ansible.builtin.shell: cat /proc/meminfo | grep MemTotal | awk '{print $2/1024/1024 " GB"}'
       register: result_cat_memory
-      debug:
-        var: result_cat_memory.stdout
+#      debug:
+#        var: result_cat_memory.stdout
         
     - name: Firewall
       ansible.builtin.command: firewall-cmd --state
