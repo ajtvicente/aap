@@ -46,26 +46,10 @@
     - name: Show Alternatives Python
       debug:
         var: alternatives_python.stdout
-    - name: SELinux 
-      ansible.builtin.shell: sestatus | grep 'SELinux status'
-      register: sestatus
-    - name: Show SELinux
-      debug:
-        var: sestatus.stdout
-#    - name: Check noexec in /etc/fstab
-#      ansible.builtin.shell: cat /etc/fstab | grep noexec
-#      ignore_errors: true
-#      register: noexec_output
-#    - name: Output check_noexec_output
-#      ansible.builtin.debug:
-#        msg: noexec_output.stdout
-#    - name: output PermitRootLogin
-#      ansible.builtin.shell: cat /etc/ssh/sshd_config | grep PermitRootLogin
-#      ignore_errors: true
-#      register: root_login
-#    - name: show PermitRootLogin
-#      ansible.builtin.debug:
-#        msg: root_login.stdout
+
+
+
+
 
     - name: Check if there is a noexec parameter in /etc/fstab
       ansible.builtin.shell: "grep -w noexec /etc/fstab || true"
@@ -96,6 +80,25 @@
       ansible.builtin.debug:
         msg: "ℹ️ Não há configuração explícita de PermitRootLogin no sshd_config (valor padrão pode ser 'prohibit-password')"
       when: sshd_permit_root.stdout == ""
+
+    - name: Check if SELinux is enabled
+      ansible.builtin.command: getenforce
+      register: selinux_status
+      changed_when: false
+    - name: Display message if SELinux is enabled (Enforcing)
+      ansible.builtin.debug:
+        msg: "✅ O SELinux está HABILITADO e em modo Enforcing"
+      when: selinux_status.stdout == "Enforcing"
+    - name: Display message if SELinux is active but permissive
+      ansible.builtin.debug:
+        msg: "ℹ️ O SELinux está ATIVO, mas em modo Permissive"
+      when: selinux_status.stdout == "Permissive"
+    - name: Display message if SELinux is disabled
+      ansible.builtin.debug:
+        msg: "⚠️ O SELinux está DESABILITADO"
+      when: selinux_status.stdout == "Disabled"
+
+
 
 #---
 #- name: mount point linux
