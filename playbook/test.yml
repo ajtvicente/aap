@@ -49,7 +49,18 @@
 
 
 
-
+    - name: Check Python version via alternatives
+      ansible.builtin.shell: "alternatives --display python || update-alternatives --display python"
+      register: python_alternatives
+      changed_when: false
+    - name: Show enabled Python version
+      ansible.builtin.debug:
+        msg: "✅ Versão do Python habilitada no alternatives: {{ python_alternatives.stdout_lines | select('search', 'link currently points to') | list | join(', ') }}"
+      when: python_alternatives.stdout is search('link currently points to')
+    - name: Show warning if no Python configuration exists in alternatives
+      ansible.builtin.debug:
+        msg: "⚠️ Nenhuma configuração de alternatives encontrada para o Python"
+      when: python_alternatives.stdout == ""
 
     - name: Check if there is a noexec parameter in /etc/fstab
       ansible.builtin.shell: "grep -w noexec /etc/fstab || true"
