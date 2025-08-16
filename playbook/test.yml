@@ -46,7 +46,6 @@
     - name: Show crypto-policy
       debug:
         var: crypto_policy.stdout
-
     - name: Alternatives Python
       ansible.builtin.shell: alternatives --list | grep python3
       register: alternatives_python
@@ -54,6 +53,12 @@
       debug:
         var: alternatives_python.stdout
 
+    - name: SELinux 
+      ansible.builtin.command: sestatus
+      register: sestatus
+    - name: Show SELinux
+      debug:
+        var: sestatus.stdout
 
 #---
 #- name: mount point linux
