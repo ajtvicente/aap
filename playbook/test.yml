@@ -30,6 +30,8 @@
     - name: Check /etc/fstab for noexec
       ansible.builtin.shell: grep noexec /etc/fstab
       register: result_cat_fstab
+       msg: noexec is present in /etc/fstab
+      when: noexec_check.stdout | length > 0
 
     - name: NTP
       ansible.builtin.shell: cat /etc/chrony.conf | grep -E "^(server|pool)"
