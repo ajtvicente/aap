@@ -63,6 +63,7 @@
     - name: Crypto-Policies
       ansible.builtin.command: update-crypto-policies --show
       register: result_cat_crypto
+      ignore_errors: true
      - name: Result_Crypto-Policies
       ansible.builtin.debug:
         var: result_cat_crypto.stdout
