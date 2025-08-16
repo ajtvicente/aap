@@ -55,10 +55,10 @@
     - name: Check noexec in /etc/fstab
       ansible.builtin.shell: cat /etc/fstab | grep noexec
       ignore_errors: true
-      register: check_noexec_output
+      register: noexec_output
     - name: Output check_noexec_output
       ansible.builtin.debug:
-        msg: check_noexec_output.stdout
+        msg: noexec_output.stdout
     - name: output PermitRootLogin
       ansible.builtin.shell: cat /etc/ssh/sshd_config | grep PermitRootLogin
       ignore_errors: true
