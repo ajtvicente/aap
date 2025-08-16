@@ -40,7 +40,7 @@
     - name: result noexec in fstab
       ansible.builtin.debug:
         var: noexec_in_fstab.stdout
-        when: noexec_in_fstab.changed
+        failed_when: noexec_in_fstab.rc == 2
 
 
 
