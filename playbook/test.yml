@@ -16,7 +16,7 @@
       register: result_cat_uptime
 
     - name: CPU
-      ansible.builtin.command: grep physical.id /proc/cpuinfo | sort -u | wc -l
+      ansible.builtin.command: "grep physical.id /proc/cpuinfo | sort -u | wc -l"
       register: result_cat_cpu
 
     - name: Memory
