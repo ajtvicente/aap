@@ -30,10 +30,11 @@
     - name: Check noexec in /etc/fstab
       ansible.builtin.shell: grep noexec /etc/fstab
       register: check_fstab_result
+      ignore_errors: true
     - name: Assert that noexec is present
       ansible.builtin.assert:
         that: check_fstab_result.stdout is search("noexec")
-        fthat: check_fstab_result.stdout is search("")
+  
 
 
 
