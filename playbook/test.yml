@@ -3,13 +3,9 @@
   hosts: all
   become: true
   tasks:
-    - name: Check /etc/fstab for noexec
-      ansible.builtin.shell: cat /etc/fstab | grep noexec
-      register: noexec_check
-    - name: Check /etc/fstab for noexec
+    - name: Print hostname
       ansible.builtin.debug:
-        msg: noexec is present in /etc/fstab
-      when: noexec_check.stdout | length > 0
+        var: ansible_hostname
 
 #---
 #- name: mount point linux
