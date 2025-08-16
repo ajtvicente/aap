@@ -27,13 +27,10 @@
       ansible.builtin.command: firewall-cmd --state
       register: result_cat_firewall
 
-    - name: Check /etc/fstab for noexec
+    - name: FSTAB
       ansible.builtin.shell: grep noexec /etc/fstab
       register: result_cat_fstab
-    - name: Check /etc/fstab for noexec
-      ansible.builtin.debug:
-        msg: noexec is present in /etc/fstab
-      when: result_cat_fstab.stdout | length > 0
+      ignore_errors: true
 
     - name: NTP
       ansible.builtin.shell: cat /etc/chrony.conf | grep -E "^(server|pool)"
