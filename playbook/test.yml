@@ -27,20 +27,14 @@
     - name: Print firewalld status
       ansible.builtin.debug:
         msg: "{{ firewalld_status.stdout }}"
-#    - name: Check noexec in /etc/fstab
-#      ansible.builtin.shell: grep noexec /etc/fstab
-#      register: check_fstab_result
-#    - name: Assert that noexec is present
-#      ansible.builtin.assert:
-#        that: check_fstab_result.stdout is search("noexec")
-    - name: Check for noexec in fstab
-      ansible.builtin.command: grep --ignore-case noexec /etc/fstab
-      register: noexec_in_fstab
-      failed_when: noexec_in_fstab.rc == 2
-    - name: result noexec in fstab
-      ansible.builtin.debug:
-        var: noexec_in_fstab.stdout
+    - name: Check noexec in /etc/fstab
+      ansible.builtin.shell: grep noexec /etc/fstab
+      register: check_fstab_result
+    - name: Assert that noexec is present
+      ansible.builtin.assert:
+        that: check_fstab_result.stdout is search("noexec")
         failed_when: noexec_in_fstab.rc == 2
+
 
 
 
