@@ -59,13 +59,13 @@
 #    - name: Output check_noexec_output
 #      ansible.builtin.debug:
 #        msg: noexec_output.stdout
-    - name: output PermitRootLogin
-      ansible.builtin.shell: cat /etc/ssh/sshd_config | grep PermitRootLogin
-      ignore_errors: true
-      register: root_login
-    - name: show PermitRootLogin
-      ansible.builtin.debug:
-        msg: root_login.stdout
+#    - name: output PermitRootLogin
+#      ansible.builtin.shell: cat /etc/ssh/sshd_config | grep PermitRootLogin
+#      ignore_errors: true
+#      register: root_login
+#    - name: show PermitRootLogin
+#      ansible.builtin.debug:
+#        msg: root_login.stdout
 
     - name: Check if there is a noexec parameter in /etc/fstab
       ansible.builtin.shell: "grep -w noexec /etc/fstab || true"
@@ -80,6 +80,22 @@
         msg: "⚠️ O parâmetro 'noexec' NÃO está configurado no /etc/fstab"
       when: fstab_noexec.stdout == ""
 
+    - name: Check PermitRootLogin setting in sshd_config
+      ansible.builtin.shell: "grep -i '^PermitRootLogin' /etc/ssh/sshd_config || true"
+      register: sshd_permit_root
+      changed_when: false
+    - name: Display message if PermitRootLogin is disabled
+      ansible.builtin.debug:
+        msg: "✅ O acesso direto de root via SSH está DESABILITADO (PermitRootLogin no)"
+      when: sshd_permit_root.stdout is search('no', ignorecase=True)
+    - name: Display message if PermitRootLogin is enabled
+      ansible.builtin.debug:
+        msg: "⚠️ O acesso direto de root via SSH está HABILITADO (PermitRootLogin yes)"
+      when: sshd_permit_root.stdout is search('yes', ignorecase=True)
+    - name: Display message if no explicit configuration
+      ansible.builtin.debug:
+        msg: "ℹ️ Não há configuração explícita de PermitRootLogin no sshd_config (valor padrão pode ser 'prohibit-password')"
+      when: sshd_permit_root.stdout == ""
 
 #---
 #- name: mount point linux
