@@ -12,4 +12,4 @@
       register: hosts
     - name: output hosts
       ansible.builtin.debug:
-        msg: "{{ hosts.stdout }}"
+        msg: hosts.stdout
