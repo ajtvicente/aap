@@ -16,7 +16,7 @@
       ansible.builtin.debug:
         var: ansible_processor_count
     - name: List memory in linux
-      ansible.builtin.command: cat /proc/meminfo
+      ansible.builtin.command: cat /proc/meminfo | grep MemTotal
       register: memory
     - name: Format memory output
       ansible.builtin.debug:
