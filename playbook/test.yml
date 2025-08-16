@@ -42,7 +42,7 @@
 
 
     - name: Check Python version via alternatives
-      ansible.builtin.shell: "alternatives --display python || update-alternatives --display python"
+      ansible.builtin.shell: "alternatives --list | grep python"
       register: python_alternatives
       changed_when: false
     - name: Show enabled Python version
