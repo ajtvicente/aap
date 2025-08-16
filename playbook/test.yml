@@ -42,7 +42,10 @@
         msg: "{{ chrony_conf.stdout_lines }}"
     - name: update crypto-policy
       ansible.builtin.command: update-crypto-policies --show
-
+      register: crypto_policy
+    - name: Show crypto-policy
+      debug:
+        var: crypto_policy.stdout
 
 
 #---
