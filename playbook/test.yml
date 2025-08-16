@@ -4,7 +4,7 @@
   become: true
   tasks:
     - name: Hostname
-      ansible.builtin.command: cat /opt/hostname
+      ansible.builtin.command: cat /etc/hostname
       register: result_cat_hostname
 
     - name: OS-Release
