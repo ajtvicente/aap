@@ -52,14 +52,18 @@
     - name: Show Alternatives Python
       debug:
         var: alternatives_python.stdout
-
     - name: SELinux 
       ansible.builtin.shell: sestatus | grep 'SELinux status'
       register: sestatus
     - name: Show SELinux
       debug:
         var: sestatus.stdout
-
+    - name: Check noexec in /etc/fstab
+      ansible.builtin.shell: grep noexec /etc/fstab
+      register: check_noexec_output
+    - name: Output check_noexec_output
+      ansible.builtin.debug:
+        msg: "{{ check_noexec_output.stdout }}"
 
 
 #---
