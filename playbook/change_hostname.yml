@@ -13,3 +13,4 @@
     - name: Print the contents of the hosts file
       debug:
         msg: "{{ hosts_file.stdout_lines }}"
+#  teste
