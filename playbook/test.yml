@@ -4,13 +4,17 @@
   become: true
   tasks:
     - name: Print effective user running tasks
+      ansible.builtin.debug:
       debug: var=ansible_user_id
 
     - name: Print kernel release info
-       debug: var=ansible_facts['kernel']
+      ansible.builtin.debug:
+      debug: var=ansible_facts['kernel']
 
     - name: Print hostname server
+      ansible.builtin.debug:
       debug: var=ansible_facts['nodename']
 
     - name: variable playbook test
+      ansible.builtin.debug:
       debug: var=ansible_facts['memory_mb']
