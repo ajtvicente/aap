@@ -1,6 +1,6 @@
 ---
 - name: A very simple playbook
-  hosts: all
+  hosts: localhost
   become: true
   tasks:
     - name: Print effective user running tasks
