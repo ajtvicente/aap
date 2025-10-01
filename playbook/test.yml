@@ -1,20 +1,14 @@
 ---
-- name: A very simple playbook
-  hosts: localhost
-  become: true
+- name: Demonstrates submitting JCL.
+  hosts: zos_host
+  gather_facts: false
+  vars:
+    tgt_tmp_dir: "/tmp"
+    job_name: "{{ jcl | default('HELLO') }}"
+  environment: "{{ environment_vars }}"
   tasks:
-    - name: Print effective user running tasks
-      ansible.builtin.debug:
-      debug: var=ansible_user_id
 
-    - name: Print kernel release info
-      ansible.builtin.debug:
-      debug: var=ansible_facts['kernel']
-
-    - name: Print hostname server
-      ansible.builtin.debug:
-      debug: var=ansible_facts['nodename']
-
-    - name: variable playbook test
-      ansible.builtin.debug:
-      debug: var=ansible_facts['memory_mb']
+	- name: Execute TSO command List User (LU) for TESTUSER to obtain TSO information.
+	  zos_tso_command:
+	    commands:
+	      - LU TSB0ANS
