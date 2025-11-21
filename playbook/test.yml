@@ -1,6 +1,7 @@
 ---
 - name: version
   hosts: localhost
+  become: true
   tasks:
     - name: view hostname
       ansible.builtin.command: hostname
