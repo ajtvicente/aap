@@ -3,8 +3,6 @@
   hosts: localhost
   become: true
   tasks:
-    - name: view hostname
-      ansible.builtin.command: cat /etc/hostname
     - name: view uptime
       ansible.builtin.command: uptime
     - name: view user
