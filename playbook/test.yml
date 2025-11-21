@@ -12,3 +12,6 @@
     - name: uptime
       ansible.builtin.debug:
         var: ansible_uptime_seconds
+    - name: number of cpu
+      ansible.builtin.debug:
+        var: ansible_processor_count
