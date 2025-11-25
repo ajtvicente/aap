@@ -1,6 +1,6 @@
 ---
 - name: Teste de requisito para execução de setup Red Hat Ansible 
-  hosts: localhost
+  hosts: all
   become: true
   tasks:
     - name: Print hostname
